@@ -1,6 +1,7 @@
 import { Component, input } from '@angular/core';
-import { Task } from '../interfaces/task';
+
 import { JsonPipe, NgIf } from '@angular/common';
+import { Task } from '../interfaces/task';
 
 @Component({
   selector: 'app-task',
