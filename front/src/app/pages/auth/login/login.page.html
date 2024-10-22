@@ -1,0 +1,17 @@
+<p>login works!</p>
+
+<form id="login" (ngSubmit)="this.onSubmit()">
+  <input
+    type="text"
+    name="username"
+    placeholder="username"
+    [(ngModel)]="this.username"
+  />
+  <input
+    type="password"
+    name="password"
+    placeholder="password"
+    [(ngModel)]="this.password"
+  />
+  <button type="submit" id="inicio-button">Iniciar sesión</button>
+</form>

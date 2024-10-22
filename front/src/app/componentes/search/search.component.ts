@@ -11,13 +11,13 @@ import { FormsModule } from '@angular/forms';
 export class SearchComponent {
   searchOutput = output<string>();
 
-  searchValue: string = 'variable (valor actual)';
+  searchValue: string = 'id de tarea a buscar';
   numberclick = 0;
 
   public searchClick() {
     this.numberclick += 1;
     console.log('valor actual', this.searchValue);
     console.log('click numero', this.numberclick);
-    this.searchOutput.emit(this.searchValue);
+    //this.searchOutput.emit(this.searchValue);
   }
 }
