@@ -1,33 +1,47 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ApiRestService } from '../../../services/api-rest.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, NgIf],
+  imports: [FormsModule, NgIf, RouterLink],
   templateUrl: './login.page.html',
   styleUrl: './login.page.css',
 })
 export class LoginPage {
-  //Obtenemos el valor de los inputs username y password.
-  username: string = '';
-  password: string = '';
   private apiService: ApiRestService = inject(ApiRestService);
   private router: Router = inject(Router);
 
-  async onSubmit() {
-    console.log('username:', this.username);
-    console.log('password:', this.password);
+  credenciales = {
+    username: '',
+    password: '',
+  };
 
-    const sent = await this.apiService.post(
-      'auth/',
-      JSON.stringify({ username: this.username, contraseña: this.password }),
-    );
-    console.log(sent);
-    this.apiService.setToken(sent.token);
-    this.router.navigate(['/tasks']);
+  errorMessage: string = '';
+
+  async login() {
+    try {
+      const response = await this.apiService.post(
+        'auth/login',
+        JSON.stringify(this.credenciales),
+      );
+      this.apiService.setToken(response.token);
+      this.router.navigate(['/home']);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        if (error.message.includes('401') || error.message.includes('404')) {
+          this.errorMessage = 'Las credenciales son incorrectas.';
+        } else {
+          this.errorMessage =
+            'Hubo un problema con la autenticación. Por favor, intenta de nuevo.';
+        }
+      } else {
+        this.errorMessage =
+          'Hubo un problema inesperado. Por favor, intenta de nuevo.';
+      }
+    }
   }
 }
