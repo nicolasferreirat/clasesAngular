@@ -1,0 +1,62 @@
+<div class="task-form-container">
+  <h2>Crear Tarea</h2>
+  <form (ngSubmit)="onSubmit(formulario)" #formulario="ngForm">
+    <div>
+      <h4>Nombre:</h4>
+      <input
+        type="text"
+        [(ngModel)]="task.nombre"
+        name="nombreTarea"
+        id="nombreTarea"
+        #nombreTarea="ngModel"
+        placeholder="Nombre de tarea"
+        minlength="3"
+        maxlength="50"
+        appTaken
+        required
+      />
+      @if (nombreTarea.control) {
+        <p>VALIDACIONES DEL NOMBRE:</p>
+        <h6>
+          -> valid(si es "juan" es false xq hicimos en la directiva):
+          {{ nombreTarea.control.valid }}
+        </h6>
+        <h6>-> status: {{ nombreTarea.control.status }}</h6>
+        <h6>-> dirty: {{ nombreTarea.control.dirty }}</h6>
+        <h6>-> touched: {{ nombreTarea.control.touched }}</h6>
+        <h6>-> pendind: {{ nombreTarea.control.pending }}</h6>
+      }
+    </div>
+    <div>
+      <h4>Duración:</h4>
+      <input
+        [(ngModel)]="task.duracion"
+        name="duracionTarea"
+        id="duracionTarea"
+        #duracionTarea="ngModel"
+        placeholder="duración (minutos)"
+        min="1"
+        max="30"
+        required
+        appDivisor="3"
+      />
+      @if (duracionTarea.control) {
+        <p>VALIDACIONES DE DURACION:</p>
+        <h6>-> valid: {{ duracionTarea.control.valid }}</h6>
+        <h6>-> status: {{ duracionTarea.control.status }}</h6>
+        <h6>-> dirty: {{ duracionTarea.control.dirty }}</h6>
+        <h6>-> touched: {{ duracionTarea.control.touched }}</h6>
+        <h6>-> pendind: {{ duracionTarea.control.pending }}</h6>
+      }
+    </div>
+    <button type="submit">Crear Tarea</button>
+  </form>
+  @if (duracionTarea.control) {
+    <p>VALIDACIONES DEL FORMULARIO:</p>
+    <h6>-> valid: {{ formulario.control.valid }}</h6>
+    <h6>-> status: {{ formulario.status }}</h6>
+    <h6>-> dirty: {{ formulario.control.dirty }}</h6>
+    <h6>-> touched: {{ formulario.control.touched }}</h6>
+    <h6>-> pendind: {{ formulario.control.pending }}</h6>
+  }
+</div>
