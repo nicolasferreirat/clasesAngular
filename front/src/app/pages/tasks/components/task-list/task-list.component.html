@@ -1,0 +1,14 @@
+<div>
+  <h1>Lista de Tareas</h1>
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+  <ul>
+    <li *ngFor="let task of tasks">
+      {{ task.nombre }}
+      {{ task.id_tarea }}
+      {{ task.nombre }}
+      {{ task.duracion }}
+    </li>
+  </ul>
+</div>

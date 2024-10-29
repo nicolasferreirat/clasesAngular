@@ -34,6 +34,7 @@ export class TaskFormComponent {
         }),
       );
 
+      // VER PORQUE NO ANDA EL LLAMADO ESTE AL BACK
       console.log(sent);
       this.tasksService.setToken(sent.token);
       this.router.navigate(['/tasks']);

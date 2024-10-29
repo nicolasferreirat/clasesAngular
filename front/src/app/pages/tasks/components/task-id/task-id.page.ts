@@ -17,3 +17,4 @@ export class TaskIdPage implements OnInit {
     );
   }
 }
+// IMPLEMENTAR LO DE VER TAREAS POR SU ID

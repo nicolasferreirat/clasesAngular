@@ -15,19 +15,17 @@ export class LoginPage {
   private apiService: ApiRestService = inject(ApiRestService);
   private router: Router = inject(Router);
 
-  credenciales = {
-    username: '',
-    password: '',
-  };
-
+  username: string = '';
+  password: string = '';
   errorMessage: string = '';
 
   async login() {
     try {
       const response = await this.apiService.post(
-        'auth/login',
-        JSON.stringify(this.credenciales),
+        'auth/',
+        JSON.stringify({ username: this.username, contraseña: this.password }),
       );
+      console.log(response.token);
       this.apiService.setToken(response.token);
       this.router.navigate(['/home']);
     } catch (error: unknown) {

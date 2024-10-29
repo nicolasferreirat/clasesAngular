@@ -1,20 +1,20 @@
-<p>login works!</p>
-
-<form id="login">
-  <input
-    type="text"
-    name="username"
-    placeholder="username"
-    [(ngModel)]="credenciales.username"
-  />
-  <input
-    type="password"
-    name="password"
-    placeholder="password"
-    [(ngModel)]="credenciales.password"
-  />
-  <button (click)="login()" type="submit">Ingresar</button>
-  <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
-  <br />
-  <button [routerLink]="['/registro']">Registrarse</button>
-</form>
+<body>
+  <form id="login">
+    <input
+      type="text"
+      name="username"
+      placeholder="username"
+      [(ngModel)]="this.username"
+    />
+    <input
+      type="password"
+      name="password"
+      placeholder="password"
+      [(ngModel)]="this.password"
+    />
+    <button (click)="login()" type="submit">Ingresar</button>
+    <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+    <br />
+    <button [routerLink]="['/registro']">Registrarse</button>
+  </form>
+</body>

@@ -19,22 +19,26 @@ export class TasksService {
   }
 
   private getHeaders(): HeadersInit {
-    if (this.token) {
-      return {
-        Authorization: `Bearer ${this.token}`,
-        'Content-Type': 'application/json',
-      };
-    } else {
-      return {
-        'Content-Type': 'application/json',
-      };
-    }
+    return {
+      Authorization: this.token ? `Bearer ${this.token}` : '',
+      'Content-Type': 'application/json',
+    };
   }
 
-  async getAllTask() {
-    const response = await fetch('/back/tareas');
-    const tasks = await response.json();
-    return tasks;
+  async getAllTasks() {
+    try {
+      const response = await fetch(`${this.baseUrl}/tareas`, {
+        headers: this.getHeaders(),
+      });
+      if (!response.ok) {
+        throw new Error('Failed to fetch tasks');
+      }
+      const tasks = await response.json();
+      return tasks;
+    } catch (error) {
+      console.error('Error fetching tasks:', error);
+      throw error;
+    }
   }
 
   async post<T = any>(id_usuario: string, body: string): Promise<T> {
@@ -42,18 +46,15 @@ export class TasksService {
       const response = await fetch(
         `${this.baseUrl}/usuarios/${id_usuario}/tareas`,
         {
-          //
           method: 'POST',
           headers: this.getHeaders(),
           body: body,
         },
       );
       const data = await response.json();
-      //Si la respuesta del data es okay
       if (response.ok) {
         return data;
       } else {
-        //Devolvemos el error
         throw new Error(data);
       }
     } catch (error) {
